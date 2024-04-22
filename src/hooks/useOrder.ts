@@ -5,9 +5,9 @@ import { MenuItem } from "../types/index"
 const useOrder = () => {
 
     const [order, setOrder] = useState<OrderItem[]>([])
+    const [tip, setTip] = useState(0)
  
     const addItem = (item: MenuItem) => {
-        console.log('addItem cargando', item)
         const itemExist = order.find(oItem => oItem.id === item.id)
 
         if (itemExist) {
@@ -24,8 +24,15 @@ const useOrder = () => {
         
     }
 
-    console.log('order', order)
-    return {addItem, order}
+    const removeItem = (id: MenuItem['id']) => {
+        setOrder(order.filter( item => item.id !== id))
+    }
+
+    const placeOrder = () => {
+        setOrder([])
+        setTip(0)
+    }
+    return {order, tip,setTip, addItem,removeItem, placeOrder}
 }
 
 export {useOrder}
